@@ -1,0 +1,59 @@
+<div id="exportHeader" class="container navbarplayground">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-3">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand homeURL" href="../index.html"><img id="capi-paste-logo" src="../images/capipastelogo.gif">cAPI Paste</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-3">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a class="homeURL" href="../index.html">Home</a></li>
+            <!-- <li><a href="">Capis</a></li> -->
+            <!-- <li><a href="#">APIs</a></li> -->
+            <li><a href="../contactform.html">Contact</a></li>
+            <li><a><button type="button" class="login-button" data-toggle="modal" data-target="#myModal">Login</button></a></li>
+        </ul>
+        <div id="logged-user"></div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">cAPI Paste</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label><b>Email</b></label>
+                        <input id="email-text" type="email" placeholder="Enter Email">
+                        <label><b>Password</b></label>
+                        <input id="password-text" type="password" placeholder="Enter Password">
+                        <button class="btn btn-md btn-success" type="submit" id="submit-up">Login</button>
+                        <div id="login-errors"></div>
+                        <div><h5><a id="createaccounttext" href="createaccount.html">Create Account</a></h5></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.navbar-collapse -->
+</div>
+<!-- /.container -->
+<div id="exportFooter" class="container navbarplayground footer-style">
+    <p>Kapibara-san © SANRIO CO., LTD. All other site content © Capi-Paste</p>
+<style type="text/css">
+.footer-style {
+    color: white;   
+    text-align: center;
+    padding-top: 15px;
+}
+</style>
+</div>

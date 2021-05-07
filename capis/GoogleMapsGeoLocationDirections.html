@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+<style type="text/css">
+<style>
+#right-panel {
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+}
+
+#right-panel select, #right-panel input {
+   font-size: 15px;
+}
+
+#right-panel select {
+   width: 100%;
+}
+
+#right-panel i {
+  font-size: 12px;
+}
+html, body {
+  height: 100%;
+}
+#map {
+    height: 100%;
+    float: left;
+    width: 63%;
+    height: 100%;
+}
+#right-panel {
+    float: right;
+    width: 34%;
+    height: 100%;
+    overflow: auto;
+}
+.panel {
+    height: 100%;
+    overflow: auto;
+}
+#startDirections {
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 5px;
+}
+</style>
+<style type="text/css">
+    #website-preview {
+        padding: 0px;
+    }
+    #startDirections {
+        margin-bottom: 15px;
+    }
+    #total-distance-style{
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<nav class="navbar" id="importHeader">
+</nav>
+
+<div class="wrapper" id="importInfoContainer">
+
+<div class="container info-container">
+    <div class="row remove-margin small-bottom-margin">
+        <img class="user-icon" id="user-icon-change" src="http://via.placeholder.com/350x150">
+        <h4><span id="pageTitle-change"></span><br><small><span id="APIType-change"></span> API Snippet by <a id="username-change" href="#" title="JonP Profile">JonP</a></small>
+        </h4>
+    </div>
+    <div id="append-tags" class="row remove-margin small-bottom-margin">
+    </div>
+    <div class="row remove-margin">
+        <button id="preview-button" class="myButton">Preview</button>
+        <button id="html-button" class="myButton">HTML</button>
+        <button id="css-button" class="myButton">CSS</button>
+        <button id="js-button" class="myButton">JS</button>
+    </div>
+</div>
+
+<div class="container playground">
+
+    <div class="website-preview-container">
+        <div id="website-preview">
+            <!-- Put this where you want your map to be -->
+            <div id="map"></div>
+            <div id="right-panel">
+                <button id="startDirections" onclick="startDirections()">Get Directions From Current Location</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="editor-html">&lt;!-- Put this where you want your map to be --&gt;&#10;&lt;div id=&quot;map&quot;&gt;&lt;/div&gt;&#10;&lt;div id=&quot;right-panel&quot;&gt;&#10;    &lt;button id=&quot;startDirections&quot; onclick=&quot;startDirections()&quot;&gt;Get Directions From Current Location&lt;/button&gt;&#10;&lt;/div&gt;&#10;&#10;&lt;!-- Link for JQuery. Put this above your js scripts --&gt;&#10;&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;&#10;&#10;&lt;!-- Put this at the end of your HTML file. Also, you will need your own API Key to replace YOUR_API_KEY --&gt;&#10;&lt;script async defer src=&quot;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;callback=initMap&quot;&gt;&#10;&lt;/script&gt;</div>
+
+    <div id="editor-css">#right-panel {&#10;    font-family: &#39;Roboto&#39;,&#39;sans-serif&#39;;&#10;    line-height: 30px;&#10;    padding-left: 10px;&#10;}&#10;&#10;#right-panel select, #right-panel input {&#10;   font-size: 15px;&#10;}&#10;&#10;#right-panel select {&#10;   width: 100%;&#10;}&#10;&#10;#right-panel i {&#10;  font-size: 12px;&#10;}&#10;html, body {&#10;  height: 100%;&#10;}&#10;#map {&#10;    height: 100%;&#10;    float: left;&#10;    width: 63%;&#10;    height: 100%;&#10;}&#10;#right-panel {&#10;    float: right;&#10;    width: 34%;&#10;    height: 100%;&#10;    overflow: auto;&#10;}&#10;.panel {&#10;    height: 100%;&#10;    overflow: auto;&#10;}&#10;#startDirections {&#10;    margin-top: 20px;&#10;    padding: 5px;&#10;    border-radius: 5px;&#10;}</div>
+
+    <div id="editor-javascript">//Change the lat and lng here to set the destination&#10;var businessInfo = {coord:{lat: 37.872373, lng: -122.259055}}&#10;&#10;function startDirections() {&#10;  //Geolocation is used to get your current location to provide directions from where you are&#10;  if (navigator.geolocation) {&#10;      navigator.geolocation.getCurrentPosition(function(position) {&#10;        var pos = {&#10;          lat: position.coords.latitude,&#10;          lng: position.coords.longitude&#10;        }&#10;        $(&#39;#right-panel&#39;).empty();&#10;        $(&#39;#right-panel&#39;).append(&#39;&lt;p id=&quot;total-distance-style&quot;&gt;Total Distance: &lt;span id=&quot;total&quot;&gt;&lt;/span&gt;&lt;/p&gt;&#39;);&#10;        initMap(pos)&#10;      })&#10;  }&#10;}&#10;&#10;//Draws the map&#10;function initMap(position) {&#10;  var map = new google.maps.Map(document.getElementById(&#39;map&#39;), {&#10;    zoom: 14,&#10;    center: businessInfo.coord&#10;  });&#10;  //Places a marker at your business&#39;s location&#10;  var marker = new google.maps.Marker({&#10;    position: businessInfo.coord,&#10;    map:map&#10;  })&#10;&#10;  var directionsService = new google.maps.DirectionsService;&#10;  var directionsDisplay = new google.maps.DirectionsRenderer({&#10;    draggable: true,&#10;    map: map,&#10;    panel: document.getElementById(&#39;right-panel&#39;)&#10;  });&#10;&#10;  //Recalculates route if you dragged stuff&#10;  directionsDisplay.addListener(&#39;directions_changed&#39;, function() {&#10;    computeTotalDistance(directionsDisplay.getDirections());&#10;  });&#10;  if(position){&#10;  displayRoute(position, businessInfo.coord,directionsService,&#10;      directionsDisplay);&#10;  }&#10;}&#10;&#10;function displayRoute(origin, destination, service, display) {&#10;  service.route({&#10;    origin: origin,&#10;    destination: destination,&#10;&#10;    travelMode: &#39;DRIVING&#39;,&#10;    avoidTolls: true&#10;  }, function(response, status) {&#10;    if (status === &#39;OK&#39;) {&#10;      display.setDirections(response);&#10;    } else {&#10;      alert(&#39;Could not display directions due to: &#39; + status);&#10;    }&#10;  });&#10;}&#10;&#10;function computeTotalDistance(result) {&#10;  var total = 0;&#10;  var myroute = result.routes[0];&#10;  for (var i = 0; i &lt; myroute.legs.length; i++) {&#10;    total += myroute.legs[i].distance.value;&#10;  }&#10;  total = total / 1000;&#10;  document.getElementById(&#39;total&#39;).innerHTML = total + &#39; km&#39;;&#10;}</div>
+
+</div>
+
+<div class="container panelplayground" id="additional-instructions">
+    <h3 class="remove-margin similar-capis">Additional Instructions:</h3>
+    <p class="remove-margin">You'll need to get your own API key. Follow the instructions <a href="https://google-developers.appspot.com/maps/documentation/embed/get-api-key" target="_blank" class="additionallink">HERE!</a>
+    <br>
+    After you get your API Key, insert it into the INSERT YOUR API KEY in the html section
+    <br>
+    You'll want to change the businessInfo coordinates in the javascript file to set the destination. Please refer to this <a href="https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en" target="_blank" class="additionallink">link</a> for instructions on how to get the lat and lng you need.
+    </p>
+</div>
+
+<div class="container panelplayground">
+    <h3 class="remove-margin similar-capis">Similar cAPIs:</h3>
+    <div class="row">
+        <div id="similar1" class="col-xs-3"></div>
+        <div id="similar2" class="col-xs-3"></div>
+        <div id="similar3" class="col-xs-3"></div>
+        <div id="similar4" class="col-xs-3"></div>              
+    </div>
+</div>
+
+<div class="push"></div>
+
+<footer id="importFooter" class="footer"></footer>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAoBqOGpNhrH9ba5arV455T2kzhsT3bZHw",
+    authDomain: "capi-paste.firebaseapp.com",
+    databaseURL: "https://capi-paste.firebaseio.com",
+    projectId: "capi-paste",
+    storageBucket: "capi-paste.appspot.com",
+    messagingSenderId: "1002672238599"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../scripts/importheaderfooter.js"></script>
+<script src="../ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+pageTitle = 'Geolocation Directions';
+pageURL = 'GoogleMapsGeoLocationDirections.html';
+APIType = 'Google Maps';
+tags = ['Google Maps', 'geolocation', ,'marker', 'html', 'css', 'javascript'];
+submitter = 'JonP';
+preview = '/pageimages/GoogleMapsGeoLocationDirections.png'
+
+dbUsers = firebase.database().ref('/userdata');
+dbCurrentUser = firebase.database().ref('/userdata/' +submitter);
+
+dbPages = firebase.database().ref('/pagedata');
+dbCurrentPage = firebase.database().ref('/pagedata/' +pageTitle);
+
+function newUser(){
+    dbCurrentUser.set({
+        "Name": submitter,
+        "Password": "poop",
+        "Avatar": "image.url"
+    })
+}
+newUser();
+
+dbUsers.on('value', snap=>{
+    console.log(snap.val());
+})
+
+function updatePage(){
+    dbCurrentPage.set({
+        Name: pageTitle,
+        URL: pageURL,
+        previewURL: preview,
+        API: APIType,
+        Tags: tags,
+        submittedBy: submitter
+    })
+}
+
+updatePage();
+
+appendNo = 1;
+
+dbPages.on('child_added', snap=>{
+    // tempArray = snap.val();
+    console.log(snap.val());
+    if(tags[0] == snap.val().Tags[0] && appendNo < 5 && pageTitle != snap.val().Name){
+        $('#similar'+appendNo).append('<a href="'+snap.val().URL+'"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'+snap.val().Name+'</h3></div><div class="panel-body"><img class="imgWidth" src="..'+snap.val().previewURL+'"></div></div></a>');
+        appendNo++;
+    }
+})
+
+dbUsers.on('child_added', snap=>{
+// console.log(snap.val().username);
+    if(submitter == snap.val().username){
+        $('#user-icon-change').attr('src', '..'+snap.val().img);
+    }
+})
+</script>
+<!-- Page Specific JS -->
+<script>
+//Change the lat and lng here to set the destination
+var businessInfo = {coord:{lat: 37.872373, lng: -122.259055}}
+
+function startDirections() {
+  //Geolocation is used to get your current location to provide directions from where you are
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+        $('#right-panel').empty();
+        $('#right-panel').append('<p id="total-distance-style">Total Distance: <span id="total"></span></p>');
+        initMap(pos)
+      })
+  }
+}
+
+//Draws the map
+function initMap(position) {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 14,
+    center: businessInfo.coord
+  });
+  //Places a marker at your business's location
+  var marker = new google.maps.Marker({
+    position: businessInfo.coord,
+    map:map
+  })
+
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer({
+    draggable: true,
+    map: map,
+    panel: document.getElementById('right-panel')
+  });
+
+  //Recalculates route if you dragged stuff
+  directionsDisplay.addListener('directions_changed', function() {
+    computeTotalDistance(directionsDisplay.getDirections());
+  });
+  if(position){
+  displayRoute(position, businessInfo.coord,directionsService,
+      directionsDisplay);
+  }
+}
+
+function displayRoute(origin, destination, service, display) {
+  service.route({
+    origin: origin,
+    destination: destination,
+
+    travelMode: 'DRIVING',
+    avoidTolls: true
+  }, function(response, status) {
+    if (status === 'OK') {
+      display.setDirections(response);
+    } else {
+      alert('Could not display directions due to: ' + status);
+    }
+  });
+}
+
+function computeTotalDistance(result) {
+  var total = 0;
+  var myroute = result.routes[0];
+  for (var i = 0; i < myroute.legs.length; i++) {
+    total += myroute.legs[i].distance.value;
+  }
+  total = total / 1000;
+  document.getElementById('total').innerHTML = total + ' km';
+}
+</script>
+<!-- Put this at the end of your HTML file. Also, you will need your own API Key to replace YOUR_API_KEY -->
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTZea67jn4YSPIGu0dNTHRyB1jnvo1Q00&callback=initMap">
+</script>
+<script src="../scripts/capis.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../auth.js"></script>
+</html>

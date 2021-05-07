@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" crossorigin="anonymous"> -->
+	<link rel="stylesheet" type="text/css" href="../style.css">
+
+<style type="text/css">
+.gifContainer {
+	margin-bottom: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar" id="importHeader"></nav>
+
+<div class="wrapper" id="importInfoContainer">
+
+<div class="container info-container">
+	<div class="row remove-margin small-bottom-margin">
+		<img class="user-icon" id="user-icon-change" src="http://via.placeholder.com/350x150">
+		<h4><span id="pageTitle-change"></span><br><small><span id="APIType-change"></span> API Snippet by <a id="username-change" href="#"></a></small>
+        </h4>
+	</div>
+	<div id="append-tags" class="row remove-margin small-bottom-margin">
+<!-- 		<button class="tag">Giphy</button>
+		<button class="tag">Javascript</button>
+		<button class="tag">HTML</button>
+		<button class="tag">CSS</button> -->
+	</div>
+	<div class="row remove-margin">
+		<button id="preview-button" class="myButton">Preview</button>
+		<button id="html-button" class="myButton">HTML</button>
+		<button id="css-button" class="myButton">CSS</button>
+		<button id="js-button" class="myButton">JS</button>
+	</div>
+</div>
+
+<div class="container playground">
+
+	<div class="website-preview-container">
+		<div id="website-preview">
+			<div id="gifs"></div>
+		</div>
+	</div>
+
+	<div id="editor-html">&lt;!-- Links for JQuery and Bootstrap. You can put these in the Head of your HTML file --&gt;&#10;&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;&#10;&#10;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot; integrity=&quot;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&quot; crossorigin=&quot;anonymous&quot;&gt;&#10;&#10;&lt;!-- Put this Div where you want the gifs to appear on your site --&gt;&#10;&lt;div id=&quot;gifs&quot;&gt;&lt;/div&gt;</div>
+
+	<div id="editor-css">.imgWidth {&#10;&#9;width: 100%;&#10;&#9;height: auto;&#10;&#9;margin-bottom: 0px;&#10;}&#10;&#10;.gifContainer{&#10;&#9;margin-bottom: 10px;&#10;}</div>
+
+	<div id="editor-javascript">//Code for AJAX request and appending images&#10;custom = &#39;cats&#39;;&#10;imagecount = &#39;20&#39;;&#10;offset = &#39;0&#39;;&#10;&#10;function getgifs(){&#10;$(&#39;#gifs&#39;).empty();&#10;offset = 0;&#10;var queryURL = &#39;https://api.giphy.com/v1/gifs/search?q=&#39;+custom+&#39;&amp;api_key=dc6zaTOxFJmzC&amp;MPAA=R&amp;limit=&#39;+imagecount+&#39;&amp;offset=&#39;+offset+&#39;&#39;&#10;$.ajax({&#10;&#9;    url: queryURL,&#10;&#9;    method: &quot;GET&quot;&#10;    }).done(function(response) {&#10;&#9;&#9;if(response.data.length&lt;1){&#10;&#9;&#9;&#9;return&#10;&#9;&#9;}&#10;&#9;&#9;//Append gifs to page&#10;&#9;&#9;else {&#10;&#9;&#9;&#9;//Creates 4 columns to store rows&#10;&#9;&#9;    for(var i = 0; i&lt;4; i++){&#10;&#9;&#9;    &#9;$(&#39;#gifs&#39;).append(&#39;&lt;div class=&quot;col-xs-3&quot; id=&quot;col&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&#39;);&#10;&#9;&#9;    }&#10;&#9;&#9;    //Creates #gif div to append gifs to&#10;&#9;&#9;    for (var i = 0; i&lt;response.data.length; i+=4){&#10;&#9;&#9;    &#9;var i1=i+1;&#10;&#9;&#9;    &#9;var i2=i+2;&#10;&#9;&#9;    &#9;var i3=i+3;&#10;&#9;&#9;    &#9;$(&#39;#col0&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row&quot; id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;&#9;&#9;    &#9;$(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;&#9;&#9;    &#9;$(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;&#9;&#9;    &#9;$(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;&#9;&#9;    }&#10;&#9;&#9;    //Appends gifs to proper #gif div&#10;&#9;&#9;    for (var i = 0; i &lt; response.data.length; i++) {&#10;&#9;&#9;    &#9;var mystring = response.data[i].title;&#10;&#9;&#9;    &#9;var newstring = mystring.replace(/\s/g, &quot;&quot;).length;&#10;&#9;&#9;    &#9;if(newstring&gt;0){&#10;&#9;&#9;    &#9;&#9;var temptitle = response.data[i].title&#10;&#9;&#9;    &#9;}&#10;&#9;&#9;    &#9;else {&#10;&#9;&#9;    &#9;&#9;var temptitle = &#39;No Title&#39;&#10;&#9;&#9;    &#9;}&#10;&#9;&#9;    &#9;$(&#39;#gif&#39;+i+&#39;&#39;).append(&#39;&lt;div class=&quot;animatethis gifContainer fadeinout&quot;&gt;&lt;a href=&quot;&#39;+response.data[i].url+&#39;&quot; target=&quot;_blank&quot;&gt;&lt;img class=&quot;imgWidth&quot; numvalue=&quot;&#39;+i+&#39;&quot; src=&quot;&#39;+response.data[i].images.downsized.url+&#39;&quot; data-original=&quot;&#39;+response.data[i].images.downsized.url+&#39;&quot; data-still=&quot;&#39;+response.data[i].images.downsized_still.url+&#39;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&#39;);&#10;&#9;&#9;    &#9;$(&#39;#gif&#39;+i+&#39;&#39;).addClass(&#39;animated bounceIn&#39;);&#10;&#9;&#9;    }&#10;&#9;&#9;    &#9;&#10;&#9;&#9;}&#10;&#9;&#9;//End Append gifs to page&#10;&#9;});&#10;}&#10;//End AJAX and gif append&#10;&#10;getgifs();&#10;&#10;var fadeout = function(){&#10;&#9;var changeImg = $(this).children().eq(0).children().eq(0);&#10;&#9;var stillimage = changeImg.attr(&#39;data-still&#39;);&#10;&#9;changeImg.attr(&quot;src&quot;,&quot;&quot;+stillimage+&quot;&quot;).css(&#39;filter&#39;, &#39;brightness(50%)&#39;);&#10;}&#10;&#10;var fadein = function(){&#10;&#9;var changeImg = $(this).children().eq(0).children().eq(0);&#10;&#9;var originalimage = changeImg.attr(&#39;data-original&#39;);&#10;&#9;changeImg.attr(&quot;src&quot;,&quot;&quot;+originalimage+&quot;&quot;).css(&#39;filter&#39;, &#39;brightness(100%)&#39;);&#10;}&#10;&#10;$(document).on(&quot;mouseover&quot;, &quot;.fadeinout&quot;, fadeout);&#10;$(document).on(&quot;mouseout&quot;, &quot;.fadeinout&quot;, fadein);</div>
+
+</div>
+
+<div class="container panelplayground">
+	<h3 class="remove-margin similar-capis" id="additional-instructions">Additional Instructions:</h3>
+	<p class="remove-margin">This utilizes Bootstrap Rows and Columns. This also uses JQuery. You can change the value of the 'custom' variable in the javascript to change what gifs you want to display. For example: 
+	<br>custom = 'dogs';<br>
+	will display gifs of dogs instead. Similarly, you can change imagecount for more images.</p>
+</div>
+
+<div class="container panelplayground">
+	<h3 class="remove-margin similar-capis">Similar cAPIs:</h3>
+	<div class="row">
+		<div id="similar1" class="col-xs-3"></div>
+		<div id="similar2" class="col-xs-3"></div>
+		<div id="similar3" class="col-xs-3"></div>
+		<div id="similar4" class="col-xs-3"></div>				
+	</div>
+</div>
+
+<div class="push"></div>
+
+<footer id="importFooter" class="footer"></footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAoBqOGpNhrH9ba5arV455T2kzhsT3bZHw",
+    authDomain: "capi-paste.firebaseapp.com",
+    databaseURL: "https://capi-paste.firebaseio.com",
+    projectId: "capi-paste",
+    storageBucket: "capi-paste.appspot.com",
+    messagingSenderId: "1002672238599"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../scripts/importheaderfooter.js"></script>
+<script src="../ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+pageTitle = 'Giphy API Example';
+pageURL = 'GiphyAPIImagesExample.html';
+APIType = 'Gyphy';
+tags = ['giphy', 'javascript', 'html', 'css', 'animated', 'gifs', 'ajax'];
+submitter = 'JonP';
+preview = '/pageimages/GiphyAPIImagesExample.png'
+
+dbUsers = firebase.database().ref('/userdata');
+dbCurrentUser = firebase.database().ref('/userdata/' +submitter);
+
+dbPages = firebase.database().ref('/pagedata');
+dbCurrentPage = firebase.database().ref('/pagedata/' +pageTitle);
+
+function newUser(){
+	dbCurrentUser.set({
+		"Name": submitter,
+		"Password": "poop",
+		"Avatar": "image.url"
+	})
+}
+newUser();
+
+dbUsers.on('value', snap=>{
+	console.log(snap.val());
+})
+
+function updatePage(){
+	dbCurrentPage.set({
+		Name: pageTitle,
+		URL: pageURL,
+		previewURL: preview,
+		API: APIType,
+		Tags: tags,
+		submittedBy: submitter
+	})
+}
+
+updatePage();
+
+appendNo = 1;
+
+dbPages.on('child_added', snap=>{
+	// tempArray = snap.val();
+	console.log(snap.val());
+	if(tags[0] == snap.val().Tags[0] && appendNo < 5 && pageTitle != snap.val().Name){
+		$('#similar'+appendNo).append('<a href="'+snap.val().URL+'"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'+snap.val().Name+'</h3></div><div class="panel-body"><img class="imgWidth" src="..'+snap.val().previewURL+'"></div></div></a>');
+		appendNo++;
+	}
+})
+
+dbUsers.on('child_added', snap=>{
+// console.log(snap.val().username);
+	if(submitter == snap.val().username){
+		$('#user-icon-change').attr('src', '..'+snap.val().img);
+		$('#username-change').text(submitter);
+	}
+})
+
+//Code for AJAX request and appending images
+custom = 'cats';
+imagecount = '20';
+offset = '0';
+
+function getgifs(){
+$('#gifs').empty();
+offset = 0;
+var queryURL = 'https://api.giphy.com/v1/gifs/search?q='+custom+'&api_key=dc6zaTOxFJmzC&MPAA=R&limit='+imagecount+'&offset='+offset+''
+$.ajax({
+	    url: queryURL,
+	    method: "GET"
+    }).done(function(response) {
+		if(response.data.length<1){
+			return
+		}
+		//Append gifs to page
+		else {
+			//Creates 4 columns to store rows
+		    for(var i = 0; i<4; i++){
+		    	$('#gifs').append('<div class="col-xs-3" id="col'+i+'"></div>');
+		    }
+		    //Creates #gif div to append gifs to
+		    for (var i = 0; i<response.data.length; i+=4){
+		    	var i1=i+1;
+		    	var i2=i+2;
+		    	var i3=i+3;
+		    	$('#col0').append('<div class="container-fluid"><div class="row" id="gif'+i+'"></div></div>');
+		    	$('#col1').append('<div class="container-fluid"><div class="row" id="gif'+i1+'"></div></div>');
+		    	$('#col2').append('<div class="container-fluid"><div class="row" id="gif'+i2+'"></div></div>');
+		    	$('#col3').append('<div class="container-fluid"><div class="row" id="gif'+i3+'"></div></div>');
+		    }
+		    //Appends gifs to proper #gif div
+		    for (var i = 0; i < response.data.length; i++) {
+		    	var mystring = response.data[i].title;
+		    	var newstring = mystring.replace(/\s/g, "").length;
+		    	if(newstring>0){
+		    		var temptitle = response.data[i].title
+		    	}
+		    	else {
+		    		var temptitle = 'No Title'
+		    	}
+		    	$('#gif'+i+'').append('<div class="animatethis gifContainer fadeinout"><a href="'+response.data[i].url+'" target="_blank"><img class="imgWidth" numvalue="'+i+'" src="'+response.data[i].images.downsized.url+'" data-original="'+response.data[i].images.downsized.url+'" data-still="'+response.data[i].images.downsized_still.url+'"></a></div>');
+		    	$('#gif'+i+'').addClass('animated bounceIn');
+		    }
+		    	
+		}
+		//End Append gifs to page
+	});
+}
+//End AJAX and gif append
+
+getgifs();
+
+var fadeout = function(){
+	var changeImg = $(this).children().eq(0).children().eq(0);
+	var stillimage = changeImg.attr('data-still');
+	changeImg.attr("src",""+stillimage+"").css('filter', 'brightness(50%)');
+}
+
+var fadein = function(){
+	var changeImg = $(this).children().eq(0).children().eq(0);
+	var originalimage = changeImg.attr('data-original');
+	changeImg.attr("src",""+originalimage+"").css('filter', 'brightness(100%)');
+}
+
+$(document).on("mouseover", ".fadeinout", fadeout);
+$(document).on("mouseout", ".fadeinout", fadein);
+</script>
+<script src="../scripts/capis.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../auth.js"></script>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<style type="text/css">
+p {
+	margin: 0;
+}
+.floatleft {
+	float: left;
+	height: 200px;
+}
+#donut {
+	height: 200px;
+}
+.pushright {
+	float: left;
+	height: 200px;
+	width: 25%;
+}
+.infoimg {
+    width: 100%;
+    max-width: 250px !important;
+    margin-bottom: 5px;
+}
+#map {
+    height: 400px;
+    width: 100%;
+}
+</style>
+</head>
+<body>
+
+<div class="pushright"></div>
+
+<div class="floatleft">
+<h1>Bob's Donut Shop</h1>
+<p>Located in the Grand Hyatt San Francisco at:</p>
+<p>345 Stockton St</p>
+<p>San Francisco, CA 94108</p>
+</div>
+
+<div class="floatleft">
+	<img id="donut" src="demo.png">
+</div>
+
+<div id="map"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+var businessLocation = {lat:37.789139, lng:-122.407254};
+var myAPIKey = 'AIzaSyC--CEK0kKhGRihm9BRqcy4mW5UeV_Nk3w';
+
+function initMap(){
+    // Map options
+    var options = {
+        //edit zoom to change how zoomed in the map is
+        zoom:12,
+        //edit the lat and lng to change where the center of the map is
+        center: {lat: 37.3382, lng: -121.8863}
+    }
+    // New Map
+    var map = new google.maps.Map(document.getElementById('map'), options);
+
+    var markers = [
+        {
+            coord:{lat: 37.338, lng: -121.8863},
+            content:'<h3>Bobs Donut Shop</h3><img class="infoimg" src="demo.png"><div>345 Stockton St</div><div>San Francisco, CA 94108</div><br><div>Welcome to Bobs Donut Shop. Come in for the best donuts in town! Here you can eat donuts like the picture you see above.</div>'
+        }
+    ]
+    // Add Markers
+    var prev_infowindow = false;
+
+    function addMarker(properties){
+        var marker = new google.maps.Marker({
+            position: properties.coord,
+            map:map
+        })
+        if(properties.content){
+            var infoWindow = new google.maps.InfoWindow({
+            content: properties.content,
+            maxWidth: 250
+            });
+            marker.addListener('click', function(){
+            if(prev_infowindow) {
+                prev_infowindow.close();
+            }
+            infoWindow.open(map, marker);
+            prev_infowindow = infoWindow;
+            })  
+        }
+    }
+
+    for(var i=0; i<markers.length; i++){
+        addMarker(markers[i]);
+    }
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC--CEK0kKhGRihm9BRqcy4mW5UeV_Nk3w&callback=initMap" async defer></script>
+</html>

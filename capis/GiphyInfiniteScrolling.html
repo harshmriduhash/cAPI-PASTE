@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+<style type="text/css">
+.gifContainer {
+    margin-bottom: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar" id="importHeader">
+
+<div class="container" style="margin-top: 6px;">
+    <div class="container" style="text-align: right;">
+      <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Login to cAPI Paste</button>
+    </div>  
+
+    <div id="logged-user"></div>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">cAPI Paste</h4>
+
+            </div>
+            <div class="modal-body">
+               <label><b>Email</b></label>
+                <input id="email-text" type="email" placeholder="Enter Email">
+
+                <label><b>Password</b></label>
+                <input id="password-text" type="password" placeholder="Enter Password">
+
+                <button class="btn btn-md btn-success" type="submit" id="submit-up">Login</button>
+
+                <div id="login-errors"></div>
+
+                <div><h5><a href="createaccount.html">Create Account</a></h5></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+
+
+  </div>
+</nav>
+
+<div class="wrapper" id="importInfoContainer">
+
+<div class="container info-container">
+    <div class="row remove-margin small-bottom-margin">
+        <img class="user-icon" id="user-icon-change" src="http://via.placeholder.com/350x150">
+        <h4><span id="pageTitle-change"></span><br><small><span id="APIType-change"></span> API Snippet by <a id="username-change" href="#" title="JonP Profile">JonP</a></small>
+        </h4>
+    </div>
+    <div id="append-tags" class="row remove-margin small-bottom-margin">
+<!--        <button class="tag">Giphy</button>
+        <button class="tag">Javascript</button>
+        <button class="tag">HTML</button>
+        <button class="tag">CSS</button> -->
+    </div>
+    <div class="row remove-margin">
+        <button id="preview-button" class="myButton">Preview</button>
+        <button id="html-button" class="myButton">HTML</button>
+        <button id="css-button" class="myButton">CSS</button>
+        <button id="js-button" class="myButton">JS</button>
+    </div>
+</div>
+
+<div class="container playground">
+
+    <div class="website-preview-container">
+        <div id="website-preview">
+            <div id="gifs"></div>
+        </div>
+    </div>
+
+    <div id="editor-html">&lt;!-- Links for JQuery and Bootstrap. You can put these in the Head of your HTML file --&gt;&#10;&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js&quot;&gt;&lt;/script&gt;&#10;&#10;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot; integrity=&quot;sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u&quot; crossorigin=&quot;anonymous&quot;&gt;&#10;&#10;&lt;!-- Put this Div where you want the gifs to appear on your site --&gt;&#10;&lt;div id=&quot;gifs&quot;&gt;&lt;/div&gt;</div>
+
+    <div id="editor-css">.imgWidth {&#10;&#9;width: 100%;&#10;&#9;height: auto;&#10;&#9;margin-bottom: 0px;&#10;}&#10;&#10;.gifContainer{&#10;&#9;margin-bottom: 10px;&#10;}</div>
+
+    <div id="editor-javascript">//Code for AJAX request and appending images&#10;//Variables for URL generation&#10;var custom = &#39;cats typing&#39;&#10;var imagecount = 24;&#10;var offset = 0;&#10;var queryURL = &#39;https://api.giphy.com/v1/gifs/search?q=&#39;+custom+&#39;&amp;api_key=dc6zaTOxFJmzC&amp;MPAA=R&amp;limit=&#39;+imagecount+&#39;&amp;offset=&#39;+offset+&#39;&#39;&#10;//Used to store the returned object from Giphy&#10;var object;&#10;&#10;//Code for AJAX request and appending images&#10;function getgifs(){&#10;$(&#39;#gifs&#39;).empty();&#10;offset = 0;&#10;var queryURL = &#39;https://api.giphy.com/v1/gifs/search?q=&#39;+custom+&#39;&amp;api_key=dc6zaTOxFJmzC&amp;MPAA=R&amp;limit=&#39;+imagecount+&#39;&amp;offset=&#39;+offset+&#39;&#39;&#10;$.ajax({&#10;        url: queryURL,&#10;        method: &quot;GET&quot;&#10;    }).done(function(response) {&#10;        console.log(response);&#10;        object = response;&#10;        //If no results, show no result screen&#10;        if(response.data.length&lt;1){&#10;            reset();&#10;            gifbackground = true;&#10;            $(&#39;#songplayer2&#39;).get(0).play();&#10;            $(&#39;body&#39;).css(&#39;background-image&#39;, &#39;url(images/marisaspin.gif)&#39;).css(&#39;background-color&#39;, &#39;pink&#39;);&#10;            swoosh.pause();&#10;            stopsound();&#10;            fail.play();&#10;            $(&#39;#gifs&#39;).empty();&#10;            $(&#39;#gifs&#39;).append(&#39;&lt;div class=&quot;row&quot;&gt;&lt;div class=&quot;col-xs-3&quot;&gt;&lt;/div&gt;&lt;div id=&quot;noresults&quot; class=&quot;animatethis col-xs-6&quot;&gt;NO RESULTS...&lt;/div&gt;&lt;div class=&quot;col-xs-3&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;            $(&#39;#gifs&#39;).append(&#39;&lt;div class=&quot;row&quot;&gt;&lt;div class=&quot;col-xs-3&quot;&gt;&lt;/div&gt;&lt;div id=&quot;noresults&quot; class=&quot;animatethis col-xs-6&quot;&gt;TRY SOMETHING ELSE!&lt;/div&gt;&lt;div class=&quot;col-xs-3&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);     &#10;            $(&#39;.animatethis&#39;).addClass(&quot;animated rubberBand infinite&quot;);&#10;        }&#10;        //Append gifs to page&#10;        else {&#10;            //Creates 4 columns to store rows&#10;            for(var i = 0; i&lt;4; i++){&#10;                $(&#39;#gifs&#39;).append(&#39;&lt;div class=&quot;col-xs-3&quot; id=&quot;col&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&#39;);&#10;            }&#10;            //Creates #gif div to append gifs to&#10;            for (var i = 0; i&lt;response.data.length; i+=4){&#10;                var i1=i+1;&#10;                var i2=i+2;&#10;                var i3=i+3;&#10;                $(&#39;#col0&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row&quot; id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                $(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                $(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                $(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;            }&#10;            //Appends gifs to proper #gif div&#10;            for (var i = 0; i &lt; response.data.length; i++) {&#10;                var mystring = response.data[i].title;&#10;                var newstring = mystring.replace(/\s/g, &quot;&quot;).length;&#10;                if(newstring&gt;0){&#10;                    var temptitle = response.data[i].title&#10;                }&#10;                else {&#10;                    var temptitle = &#39;No Title&#39;&#10;                }&#10;                $(&#39;#gif&#39;+i+&#39;&#39;).append(&#39;&lt;div class=&quot;gifContainer fadeinout&quot;&gt;&lt;a href=&quot;&#39;+response.data[i].url+&#39;&quot; target=&quot;_blank&quot;&gt;&lt;img class=&quot;imgWidth&quot; numvalue=&quot;&#39;+i+&#39;&quot; src=&quot;&#39;+response.data[i].images.downsized.url+&#39;&quot; data-original=&quot;&#39;+response.data[i].images.downsized.url+&#39;&quot; data-still=&quot;&#39;+response.data[i].images.downsized_still.url+&#39;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&#39;);&#10;                $(&#39;#gif&#39;+i+&#39;&#39;).addClass(&#39;animated bounceIn&#39;);&#10;            }&#10;        }&#10;        //End Append gifs to page&#10;    });&#10;}&#10;//End AJAX and gif append&#10;&#10;//Infinite Scrolling&#10;function getgifspagination(){&#10;offset += imagecount;&#10;var queryURL = &#39;https://api.giphy.com/v1/gifs/search?q=&#39;+custom+&#39;&amp;api_key=dc6zaTOxFJmzC&amp;MPAA=R&amp;limit=&#39;+imagecount+&#39;&amp;offset=&#39;+offset+&#39;&#39;&#10;$.ajax({&#10;        url: queryURL,&#10;        method: &quot;GET&quot;&#10;    }).done(function(response) {&#10;        console.log(response);&#10;        object = response;&#10;        //If no results, don&#39;t append anything&#10;        if(response.data.length&lt;1){&#10;            return;&#10;        }&#10;        //Append gifs to page&#10;        else {&#10;        //Appends #gif div into the shortest vertical column&#10;            //Variables for checking column height&#10;            var col0H = document.getElementById(&#39;col0&#39;).clientHeight;&#10;            var col1H = document.getElementById(&#39;col1&#39;).clientHeight;&#10;            var col2H = document.getElementById(&#39;col2&#39;).clientHeight;&#10;            var col3H = document.getElementById(&#39;col3&#39;).clientHeight;&#10;            //Appends 2 extra gif divs to first column&#10;            if(col0H &lt;= col1H &amp;&amp; col0H &lt;= col2H &amp;&amp; col0H &lt;= col3H){&#10;                console.log(&#39;col0 shortest&#39;);&#10;                for (var i = offset; i&lt;offset+response.data.length-4; i+=4){&#10;                    var i1=i+1;&#10;                    var i2=i+2;&#10;                    var i3=i+3;&#10;                    $(&#39;#col0&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                }&#10;                for (var i = offset+response.data.length-4; i&lt;offset+response.data.length; i+=4){&#10;                    var i1=i+1;&#10;                    var i2=i+2;&#10;                    var i3=i+3;&#10;                    $(&#39;#col0&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col0&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col0&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                }               &#10;&#10;            }&#10;            //Appends 2 extra gif divs to second column&#10;            else if(col1H &lt;= col0H &amp;&amp; col1H &lt;= col2H &amp;&amp; col1H &lt;= col3H){&#10;                console.log(&#39;col1 shortest&#39;);&#10;                for (var i = offset; i&lt;offset+response.data.length-4; i+=4){&#10;                    var i1=i+1;&#10;                    var i2=i+2;&#10;                    var i3=i+3;&#10;                    $(&#39;#col0&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                }&#10;                for (var i = offset+response.data.length-4; i&lt;offset+response.data.length; i+=4){&#10;                    var i1=i+1;&#10;                    var i2=i+2;&#10;                    var i3=i+3;&#10;                    $(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                }               &#10;&#10;            }&#10;            //Appends 2 extra gif divs to third column&#10;            else if(col2H &lt;= col0H &amp;&amp; col2H &lt;= col1H &amp;&amp; col2H &lt;= col3H){&#10;                console.log(&#39;col2 shortest&#39;);&#10;                for (var i = offset; i&lt;offset+response.data.length-4; i+=4){&#10;                    var i1=i+1;&#10;                    var i2=i+2;&#10;                    var i3=i+3;&#10;                    $(&#39;#col0&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                }&#10;                for (var i = offset+response.data.length-4; i&lt;offset+response.data.length; i+=4){&#10;                    var i1=i+1;&#10;                    var i2=i+2;&#10;                    var i3=i+3;&#10;                    $(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                }               &#10;&#10;            }&#10;            //Appends 2 extra gif divs to fourth column&#10;            else if(col3H &lt;= col0H &amp;&amp; col3H &lt;= col1H &amp;&amp; col3H &lt;= col2H){&#10;                console.log(&#39;col3 shortest&#39;);&#10;                for (var i = offset; i&lt;offset+response.data.length-4; i+=4){&#10;                    var i1=i+1;&#10;                    var i2=i+2;&#10;                    var i3=i+3;&#10;                    $(&#39;#col0&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col1&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col2&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                }&#10;                for (var i = offset+response.data.length-4; i&lt;offset+response.data.length; i+=4){&#10;                    var i1=i+1;&#10;                    var i2=i+2;&#10;                    var i3=i+3;&#10;                    $(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide id=&quot;gif&#39;+i+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i1+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col3&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i2+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                    $(&#39;#col4&#39;).append(&#39;&lt;div class=&quot;container-fluid&quot;&gt;&lt;div class=&quot;row ajaxhide&quot; id=&quot;gif&#39;+i3+&#39;&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;);&#10;                }&#10;            }&#10;            //Appends gifs to proper #gif div&#10;            for (var i = offset; i&lt;offset+response.data.length; i++) {&#10;                var mystring = response.data[i-offset].title;&#10;                var newstring = mystring.replace(/\s/g, &quot;&quot;).length;&#10;                if(newstring&gt;0){&#10;                    var temptitle = response.data[i-offset].title&#10;                }&#10;                else {&#10;                    var temptitle = &#39;No Title&#39;&#10;                }&#10;                $(&#39;#gif&#39;+i+&#39;&#39;).append(&#39;&lt;div class=&quot;gifContainer fadeinout&quot;&gt;&lt;a href=&quot;&#39;+response.data[i-offset].url+&#39;&quot; target=&quot;_blank&quot;&gt;&lt;img class=&quot;imgWidth&quot; numvalue=&quot;&#39;+i+&#39;&quot; src=&quot;&#39;+response.data[i-offset].images.downsized.url+&#39;&quot; data-original=&quot;&#39;+response.data[i-offset].images.downsized.url+&#39;&quot; data-still=&quot;&#39;+response.data[i-offset].images.downsized_still.url+&#39;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&#39;);&#10;                $(&#39;#gif&#39;+i+&#39;&#39;).addClass(&#39;animated bounceIn&#39;);&#10;            }&#10;        }&#10;        //End Append gifs to page&#10;    });&#10;}&#10;//end infinite scrolling&#10;&#10;getgifs();&#10;&#10;//boolean for stopping the page from doing multiple paginations at once&#10;var paginate = true;&#10;&#10;var paginatetoggle = function(){&#10;    paginate=true;&#10;}&#10;&#10;//infinite scroll flag based on scroll location&#10;$(window).scroll(function () {&#10;    if ($(window).scrollTop() &gt;= $(document).height() - $(window).height() - 1500) {&#10;        if(paginate){&#10;            paginate=false;&#10;            console.log(&#39;pagination&#39;);&#10;            getgifspagination();&#10;            setTimeout(paginatetoggle, 1000);&#10;        }&#10;        else{&#10;            console.log(&#39;only one pagination plze&#39;);&#10;            return;&#10;        }&#10;    }&#10;});&#10;//end infinite scroll flag&#10;&#10;var fadeout = function(){&#10;    var changeImg = $(this).children().eq(0).children().eq(0);&#10;    var stillimage = changeImg.attr(&#39;data-still&#39;);&#10;    changeImg.attr(&quot;src&quot;,&quot;&quot;+stillimage+&quot;&quot;).css(&#39;filter&#39;, &#39;brightness(50%)&#39;);&#10;}&#10;&#10;var fadein = function(){&#10;    var changeImg = $(this).children().eq(0).children().eq(0);&#10;    var originalimage = changeImg.attr(&#39;data-original&#39;);&#10;    changeImg.attr(&quot;src&quot;,&quot;&quot;+originalimage+&quot;&quot;).css(&#39;filter&#39;, &#39;brightness(100%)&#39;);&#10;}&#10;&#10;$(document).on(&quot;mouseover&quot;, &quot;.fadeinout&quot;, fadeout);&#10;$(document).on(&quot;mouseout&quot;, &quot;.fadeinout&quot;, fadein);</div>
+
+</div>
+
+<div class="container panelplayground">
+    <h3 class="remove-margin similar-capis" id="additional-instructions">Additional Instructions:</h3>
+    <p class="remove-margin">This one works when it is outside of its own scrollbox and it will infinitely append images to the bottom of the page as you scroll down. This utilizes Bootstrap Rows and Columns. This also uses JQuery. You can change the value of the 'custom' variable in the javascript to change what gifs you want to display. For example: 
+    <br>custom = 'dogs';<br>
+    will display gifs of dogs instead. Similarly, you can change imagecount for more images.</p>
+</div>
+
+<div class="container panelplayground">
+    <h3 class="remove-margin similar-capis">Similar cAPIs:</h3>
+    <div class="row">
+        <div id="similar1" class="col-xs-3"></div>
+        <div id="similar2" class="col-xs-3"></div>
+        <div id="similar3" class="col-xs-3"></div>
+        <div id="similar4" class="col-xs-3"></div>              
+    </div>
+</div>
+
+<div class="push"></div>
+
+<footer id="importFooter" class="footer"></footer>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAoBqOGpNhrH9ba5arV455T2kzhsT3bZHw",
+    authDomain: "capi-paste.firebaseapp.com",
+    databaseURL: "https://capi-paste.firebaseio.com",
+    projectId: "capi-paste",
+    storageBucket: "capi-paste.appspot.com",
+    messagingSenderId: "1002672238599"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../scripts/importheaderfooter.js"></script>
+<script src="../ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+pageTitle = 'Giphy Infinite Scrolling';
+pageURL = 'GiphyInfiniteScrolling.html';
+APIType = 'Gyphy';
+tags = ['giphy', 'javascript', 'html', 'css', 'animated', 'gifs', 'ajax'];
+submitter = 'JonP';
+preview = '/pageimages/GiphyInfiniteScrolling.png'
+
+dbUsers = firebase.database().ref('/userdata');
+dbCurrentUser = firebase.database().ref('/userdata/' +submitter);
+
+dbPages = firebase.database().ref('/pagedata');
+dbCurrentPage = firebase.database().ref('/pagedata/' +pageTitle);
+
+function newUser(){
+    dbCurrentUser.set({
+        "Name": submitter,
+        "Password": "poop",
+        "Avatar": "image.url"
+    })
+}
+newUser();
+
+dbUsers.on('value', snap=>{
+    console.log(snap.val());
+})
+
+function updatePage(){
+    dbCurrentPage.set({
+        Name: pageTitle,
+        URL: pageURL,
+        previewURL: preview,
+        API: APIType,
+        Tags: tags,
+        submittedBy: submitter
+    })
+}
+
+updatePage();
+
+appendNo = 1;
+
+dbPages.on('child_added', snap=>{
+    // tempArray = snap.val();
+    console.log(snap.val());
+    if(tags[0] == snap.val().Tags[0] && appendNo < 5 && pageTitle != snap.val().Name){
+        $('#similar'+appendNo).append('<a href="'+snap.val().URL+'"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'+snap.val().Name+'</h3></div><div class="panel-body"><img class="imgWidth" src="..'+snap.val().previewURL+'"></div></div></a>');
+        appendNo++;
+    }
+})
+
+dbUsers.on('child_added', snap=>{
+// console.log(snap.val().username);
+    if(submitter == snap.val().username){
+        $('#user-icon-change').attr('src', '..'+snap.val().img);
+    }
+})
+
+//Code for AJAX request and appending images
+//Variables for URL generation
+var custom = 'cats typing'
+var imagecount = 24;
+var offset = 0;
+var queryURL = 'https://api.giphy.com/v1/gifs/search?q='+custom+'&api_key=dc6zaTOxFJmzC&MPAA=R&limit='+imagecount+'&offset='+offset+''
+//Used to store the returned object from Giphy
+var object;
+
+//Code for AJAX request and appending images
+function getgifs(){
+$('#gifs').empty();
+offset = 0;
+var queryURL = 'https://api.giphy.com/v1/gifs/search?q='+custom+'&api_key=dc6zaTOxFJmzC&MPAA=R&limit='+imagecount+'&offset='+offset+''
+$.ajax({
+        url: queryURL,
+        method: "GET"
+    }).done(function(response) {
+        console.log(response);
+        object = response;
+        //If no results, show no result screen
+        if(response.data.length<1){
+            reset();
+            gifbackground = true;
+            $('#songplayer2').get(0).play();
+            $('body').css('background-image', 'url(images/marisaspin.gif)').css('background-color', 'pink');
+            swoosh.pause();
+            stopsound();
+            fail.play();
+            $('#gifs').empty();
+            $('#gifs').append('<div class="row"><div class="col-xs-3"></div><div id="noresults" class="animatethis col-xs-6">NO RESULTS...</div><div class="col-xs-3"></div></div>');
+            $('#gifs').append('<div class="row"><div class="col-xs-3"></div><div id="noresults" class="animatethis col-xs-6">TRY SOMETHING ELSE!</div><div class="col-xs-3"></div></div>');     
+            $('.animatethis').addClass("animated rubberBand infinite");
+        }
+        //Append gifs to page
+        else {
+            //Creates 4 columns to store rows
+            for(var i = 0; i<4; i++){
+                $('#gifs').append('<div class="col-xs-3" id="col'+i+'"></div>');
+            }
+            //Creates #gif div to append gifs to
+            for (var i = 0; i<response.data.length; i+=4){
+                var i1=i+1;
+                var i2=i+2;
+                var i3=i+3;
+                $('#col0').append('<div class="container-fluid"><div class="row" id="gif'+i+'"></div></div>');
+                $('#col1').append('<div class="container-fluid"><div class="row" id="gif'+i1+'"></div></div>');
+                $('#col2').append('<div class="container-fluid"><div class="row" id="gif'+i2+'"></div></div>');
+                $('#col3').append('<div class="container-fluid"><div class="row" id="gif'+i3+'"></div></div>');
+            }
+            //Appends gifs to proper #gif div
+            for (var i = 0; i < response.data.length; i++) {
+                var mystring = response.data[i].title;
+                var newstring = mystring.replace(/\s/g, "").length;
+                if(newstring>0){
+                    var temptitle = response.data[i].title
+                }
+                else {
+                    var temptitle = 'No Title'
+                }
+                $('#gif'+i+'').append('<div class="gifContainer fadeinout"><a href="'+response.data[i].url+'" target="_blank"><img class="imgWidth" numvalue="'+i+'" src="'+response.data[i].images.downsized.url+'" data-original="'+response.data[i].images.downsized.url+'" data-still="'+response.data[i].images.downsized_still.url+'"></a></div>');
+                $('#gif'+i+'').addClass('animated bounceIn');
+            }
+        }
+        //End Append gifs to page
+    });
+}
+//End AJAX and gif append
+
+//Infinite Scrolling
+function getgifspagination(){
+offset += imagecount;
+var queryURL = 'https://api.giphy.com/v1/gifs/search?q='+custom+'&api_key=dc6zaTOxFJmzC&MPAA=R&limit='+imagecount+'&offset='+offset+''
+$.ajax({
+        url: queryURL,
+        method: "GET"
+    }).done(function(response) {
+        console.log(response);
+        object = response;
+        //If no results, don't append anything
+        if(response.data.length<1){
+            return;
+        }
+        //Append gifs to page
+        else {
+        //Appends #gif div into the shortest vertical column
+            //Variables for checking column height
+            var col0H = document.getElementById('col0').clientHeight;
+            var col1H = document.getElementById('col1').clientHeight;
+            var col2H = document.getElementById('col2').clientHeight;
+            var col3H = document.getElementById('col3').clientHeight;
+            //Appends 2 extra gif divs to first column
+            if(col0H <= col1H && col0H <= col2H && col0H <= col3H){
+                console.log('col0 shortest');
+                for (var i = offset; i<offset+response.data.length-4; i+=4){
+                    var i1=i+1;
+                    var i2=i+2;
+                    var i3=i+3;
+                    $('#col0').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i+'"></div></div>');
+                    $('#col1').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i1+'"></div></div>');
+                    $('#col2').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i2+'"></div></div>');
+                    $('#col3').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i3+'"></div></div>');
+                }
+                for (var i = offset+response.data.length-4; i<offset+response.data.length; i+=4){
+                    var i1=i+1;
+                    var i2=i+2;
+                    var i3=i+3;
+                    $('#col0').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i+'"></div></div>');
+                    $('#col0').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i1+'"></div></div>');
+                    $('#col0').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i2+'"></div></div>');
+                    $('#col1').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i3+'"></div></div>');
+                }               
+
+            }
+            //Appends 2 extra gif divs to second column
+            else if(col1H <= col0H && col1H <= col2H && col1H <= col3H){
+                console.log('col1 shortest');
+                for (var i = offset; i<offset+response.data.length-4; i+=4){
+                    var i1=i+1;
+                    var i2=i+2;
+                    var i3=i+3;
+                    $('#col0').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i+'"></div></div>');
+                    $('#col1').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i1+'"></div></div>');
+                    $('#col2').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i2+'"></div></div>');
+                    $('#col3').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i3+'"></div></div>');
+                }
+                for (var i = offset+response.data.length-4; i<offset+response.data.length; i+=4){
+                    var i1=i+1;
+                    var i2=i+2;
+                    var i3=i+3;
+                    $('#col1').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i+'"></div></div>');
+                    $('#col1').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i1+'"></div></div>');
+                    $('#col1').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i2+'"></div></div>');
+                    $('#col2').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i3+'"></div></div>');
+                }               
+
+            }
+            //Appends 2 extra gif divs to third column
+            else if(col2H <= col0H && col2H <= col1H && col2H <= col3H){
+                console.log('col2 shortest');
+                for (var i = offset; i<offset+response.data.length-4; i+=4){
+                    var i1=i+1;
+                    var i2=i+2;
+                    var i3=i+3;
+                    $('#col0').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i+'"></div></div>');
+                    $('#col1').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i1+'"></div></div>');
+                    $('#col2').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i2+'"></div></div>');
+                    $('#col3').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i3+'"></div></div>');
+                }
+                for (var i = offset+response.data.length-4; i<offset+response.data.length; i+=4){
+                    var i1=i+1;
+                    var i2=i+2;
+                    var i3=i+3;
+                    $('#col2').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i+'"></div></div>');
+                    $('#col2').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i1+'"></div></div>');
+                    $('#col2').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i2+'"></div></div>');
+                    $('#col3').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i3+'"></div></div>');
+                }               
+
+            }
+            //Appends 2 extra gif divs to fourth column
+            else if(col3H <= col0H && col3H <= col1H && col3H <= col2H){
+                console.log('col3 shortest');
+                for (var i = offset; i<offset+response.data.length-4; i+=4){
+                    var i1=i+1;
+                    var i2=i+2;
+                    var i3=i+3;
+                    $('#col0').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i+'"></div></div>');
+                    $('#col1').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i1+'"></div></div>');
+                    $('#col2').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i2+'"></div></div>');
+                    $('#col3').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i3+'"></div></div>');
+                }
+                for (var i = offset+response.data.length-4; i<offset+response.data.length; i+=4){
+                    var i1=i+1;
+                    var i2=i+2;
+                    var i3=i+3;
+                    $('#col3').append('<div class="container-fluid"><div class="row ajaxhide id="gif'+i+'"></div></div>');
+                    $('#col3').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i1+'"></div></div>');
+                    $('#col3').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i2+'"></div></div>');
+                    $('#col4').append('<div class="container-fluid"><div class="row ajaxhide" id="gif'+i3+'"></div></div>');
+                }
+            }
+            //Appends gifs to proper #gif div
+            for (var i = offset; i<offset+response.data.length; i++) {
+                var mystring = response.data[i-offset].title;
+                var newstring = mystring.replace(/\s/g, "").length;
+                if(newstring>0){
+                    var temptitle = response.data[i-offset].title
+                }
+                else {
+                    var temptitle = 'No Title'
+                }
+                $('#gif'+i+'').append('<div class="gifContainer fadeinout"><a href="'+response.data[i-offset].url+'" target="_blank"><img class="imgWidth" numvalue="'+i+'" src="'+response.data[i-offset].images.downsized.url+'" data-original="'+response.data[i-offset].images.downsized.url+'" data-still="'+response.data[i-offset].images.downsized_still.url+'"></a></div>');
+                $('#gif'+i+'').addClass('animated bounceIn');
+            }
+        }
+        //End Append gifs to page
+    });
+}
+//end infinite scrolling
+
+getgifs();
+
+//boolean for stopping the page from doing multiple paginations at once
+var paginate = true;
+
+var paginatetoggle = function(){
+    paginate=true;
+}
+
+//infinite scroll flag based on scroll location
+$(window).scroll(function () {
+    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 1500) {
+        if(paginate){
+            paginate=false;
+            console.log('pagination');
+            getgifspagination();
+            setTimeout(paginatetoggle, 1000);
+        }
+        else{
+            console.log('only one pagination plze');
+            return;
+        }
+    }
+});
+//end infinite scroll flag
+
+var fadeout = function(){
+    var changeImg = $(this).children().eq(0).children().eq(0);
+    var stillimage = changeImg.attr('data-still');
+    changeImg.attr("src",""+stillimage+"").css('filter', 'brightness(50%)');
+}
+
+var fadein = function(){
+    var changeImg = $(this).children().eq(0).children().eq(0);
+    var originalimage = changeImg.attr('data-original');
+    changeImg.attr("src",""+originalimage+"").css('filter', 'brightness(100%)');
+}
+
+$(document).on("mouseover", ".fadeinout", fadeout);
+$(document).on("mouseout", ".fadeinout", fadein);
+</script>
+<script src="../scripts/capis.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../auth.js"></script>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>cAPI-Paste</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" crossorigin="anonymous"> -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="animate.css">
+<style type="text/css">
+
+@font-face {
+    font-family: CatCafe;
+    src: url(fonts/CatCafe.ttf);
+}
+
+/*body {
+	background-image: url("images/wp2.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: CatCafe;
+}*/
+
+h1 {
+	color: #1A1F3E;
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: #1A1F3E;
+}
+
+.pushindex {
+	height: 600px;
+}
+#importHeader {
+/*	position: fixed;
+	z-index: 100;
+	top: 0px;
+	width: 100%;*/
+}
+.modal-content {
+	z-index: 999;
+}
+.modal-backdrop {
+	z-index: 900;
+	/*background: transparent;*/
+}
+
+.bannerlogo {
+/*	margin-left: 35%;
+	width: 30%;
+	margin-top: -20px;*/
+	width: 100%;
+}
+
+.bannertoptext {
+	margin-top: 0px;
+	padding-top: 10px;
+	text-align: center;
+}
+.bannerbottomtext {
+	text-align: center;
+}
+/*.container, .panelplayground, .row, div, body, h3, html, .remove-margin, .similar-capis, .col-xs-3 {
+	background: transparent;
+	background-color: transparent;
+	backface-visibility: none;
+}*/
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar" id="importHeader"></nav>
+
+<div class="main-banner">
+	<h1 class="bannertoptext">^ Learning API's is hard... ^</h1>
+	<div class="row">
+		<div class="col-xs-4">
+			<img class="bannerlogo bannerlogo1" src="images/capipastelogoblue.gif">	
+		</div>
+		<div class="col-xs-4">
+			<img class="bannerlogo bannerlogo2" src="images/capipastelogoblue.gif">
+		</div>
+		<div class="col-xs-4">
+			<img class="bannerlogo bannerlogo3" src="images/capipastelogoblue.gif">	
+		</div>
+	</div>
+	<h1 class="bannerbottomtext">^ That's why kAPIbara-san is here! ^</h1>
+	<h1 class="bannerbottomtext">^ So easy a cAPIbara can do it! ^</h1>
+</div>
+
+<div class="container panelplayground">
+	<h3 class="remove-margin similar-capis">Featured cAPIs:</h3>
+	<div class="row">
+		<div id="featured1" class="col-xs-3"></div>
+		<div id="featured2" class="col-xs-3"></div>
+		<div id="featured3" class="col-xs-3"></div>
+		<div id="featured4" class="col-xs-3"></div>				
+	</div>
+</div>
+
+<div class="container panelplayground ">
+	<h3 class="remove-margin similar-capis">Google Maps Javascript cAPIs:</h3>
+	<div class="row">
+		<div id="googlemaps1" class="col-xs-3"></div>
+		<div id="googlemaps2" class="col-xs-3"></div>
+		<div id="googlemaps3" class="col-xs-3"></div>
+		<div id="googlemaps4" class="col-xs-3"></div>				
+	</div>
+</div>
+
+<div class="container panelplayground ">
+	<h3 class="remove-margin similar-capis">Giphy cAPIs:</h3>
+	<div class="row">
+		<div id="giphy1" class="col-xs-3"></div>
+		<div id="giphy2" class="col-xs-3"></div>
+		<div id="giphy3" class="col-xs-3"></div>
+		<div id="giphy4" class="col-xs-3"></div>				
+	</div>
+</div>
+
+<div class="container panelplayground ">
+	<h3 class="remove-margin similar-capis">Youtube cAPIs:</h3>
+	<div class="row">
+		<div id="youtube1" class="col-xs-3"></div>
+		<div id="youtube2" class="col-xs-3"></div>
+		<div id="youtube3" class="col-xs-3"></div>
+		<div id="youtube4" class="col-xs-3"></div>				
+	</div>
+</div>
+
+<div class="push"></div>
+
+<footer id="importFooter" class="footer"></footer>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAoBqOGpNhrH9ba5arV455T2kzhsT3bZHw",
+    authDomain: "capi-paste.firebaseapp.com",
+    databaseURL: "https://capi-paste.firebaseio.com",
+    projectId: "capi-paste",
+    storageBucket: "capi-paste.appspot.com",
+    messagingSenderId: "1002672238599"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="scripts/importheaderfootermaster.js"></script>
+<script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+dbUsers = firebase.database().ref('/userdata');
+dbPages = firebase.database().ref('/pagedata');
+
+appendNo = 1;
+dbPages.on('child_added', snap=>{
+	// tempArray = snap.val();
+	console.log(snap.val());
+	if(appendNo < 5){
+		var previewURL = snap.val().previewURL.slice(1);
+		$('#featured'+appendNo).append('<a href="capis/'+snap.val().URL+'"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'+snap.val().Name+'</h3></div><div class="panel-body"><img class="imgWidth" src="'+previewURL+'"></div></div></a>');
+		appendNo++;
+	}
+})
+
+googlemapsNo = 1;
+dbPages.on('child_added', snap=>{
+	// tempArray = snap.val();
+	console.log(snap.val());
+	if(snap.val().API == 'Google Maps' && googlemapsNo < 5){
+		var previewURL = snap.val().previewURL.slice(1);
+		$('#googlemaps'+googlemapsNo).append('<a href="capis/'+snap.val().URL+'"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'+snap.val().Name+'</h3></div><div class="panel-body"><img class="imgWidth" src="'+previewURL+'"></div></div></a>');
+		googlemapsNo++;
+	}
+})
+
+giphyNo = 1;
+dbPages.on('child_added', snap=>{
+	// tempArray = snap.val();
+	console.log(snap.val());
+	if(snap.val().API == 'Gyphy' && giphyNo < 5){
+		var previewURL = snap.val().previewURL.slice(1);
+		$('#giphy'+giphyNo).append('<a href="capis/'+snap.val().URL+'"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'+snap.val().Name+'</h3></div><div class="panel-body"><img class="imgWidth" src="'+previewURL+'"></div></div></a>');
+		giphyNo++;
+	}
+})
+
+youtubeNo = 1;
+dbPages.on('child_added', snap=>{
+	// tempArray = snap.val();
+	console.log(snap.val());
+	if(snap.val().API == 'Youtube Data API v3' && youtubeNo < 5){
+		var previewURL = snap.val().previewURL.slice(1);
+		$('#youtube'+youtubeNo).append('<a href="capis/'+snap.val().URL+'"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'+snap.val().Name+'</h3></div><div class="panel-body"><img class="imgWidth" src="'+previewURL+'"></div></div></a>');
+		youtubeNo++;
+	}
+})
+
+var spin = false
+$('.bannerlogo').click(function(){
+	if(!spin){
+		spin = true;
+		$('body').css({"background-image":"url('images/wp1.jpg')",
+		"background-repeat":"no-repeat",
+		"background-attachment":"fixed",
+		"background-size":"cover",
+		"font-family":"CatCafe"
+		});
+		$('.bannerlogo2').addClass('animated infinite rotate360');
+		$('.bannerlogo1').addClass('animated infinite rubberBand');
+		$('.bannerlogo3').addClass('animated infinite swing');
+	}
+	else{
+		spin = false;
+		$('body').css({"background-image":"none",
+		"background-repeat":"",
+		"background-attachment":"",
+		"background-size":"",
+		"font-family":"",
+		"background-color":"#D6E3F2"
+		});
+		$('.bannerlogo').removeClass('animated infinite rotate360 swing rubberBand');
+	}
+})
+
+
+</script>
+<style type="text/css">
+/*body {
+	background-image: url("images/wp2.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: CatCafe;
+}*/
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="auth.js"></script>
+</html>

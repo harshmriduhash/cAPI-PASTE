@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+<style type="text/css">
+<style>
+
+</style>
+<style type="text/css">
+    #website-preview {
+        padding: 10px;
+    }
+    form {
+      margin-bottom: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<nav class="navbar" id="importHeader">
+</nav>
+
+<div class="wrapper" id="importInfoContainer">
+
+<div class="container info-container">
+    <div class="row remove-margin small-bottom-margin">
+        <img class="user-icon" id="user-icon-change" src="http://via.placeholder.com/350x150">
+        <h4><span id="pageTitle-change"></span><br><small><span id="APIType-change"></span> API Snippet by <a id="username-change" href="#" title="JonP Profile">JonP</a></small>
+        </h4>
+    </div>
+    <div id="append-tags" class="row remove-margin small-bottom-margin">
+    </div>
+    <div class="row remove-margin">
+        <button id="preview-button" class="myButton">Preview</button>
+        <button id="html-button" class="myButton">HTML</button>
+        <button id="css-button" class="myButton">CSS</button>
+        <button id="js-button" class="myButton">JS</button>
+    </div>
+</div>
+
+<div class="container playground">
+
+    <div class="website-preview-container">
+        <div id="website-preview">
+            <form>
+                Channel Name: 
+                <br>
+                <input type="text" id="channelName" value="Ryukahr">
+                <br>
+                <input type="submit" id="submitChannelName" value="Submit">
+            </form>
+            <div>
+                <ul id="videos" style="list-style: none; padding-left: 0;">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="editor-html">&lt;form&gt;&#10;    Channel Name: &#10;    &lt;br&gt;&#10;    &lt;input type=&quot;text&quot; id=&quot;channelName&quot; value=&quot;Ryukahr&quot;&gt;&#10;    &lt;br&gt;&#10;    &lt;input type=&quot;submit&quot; id=&quot;submitChannelName&quot; value=&quot;Submit&quot;&gt;&#10;&lt;/form&gt;&#10;&lt;div&gt;&#10;    &lt;ul id=&quot;videos&quot; style=&quot;list-style: none; padding-left: 0;&quot;&gt;&#10;    &lt;/ul&gt;&#10;&lt;/div&gt;</div>
+
+    <div id="editor-css"></div>
+
+    <div id="editor-javascript">var channelName = &#39;Ryukahr&#39;;&#10;var maximumResults = 5;&#10;var videoWidth =  480;&#10;var videoHeight = videoWidth*3/4;&#10;var APIKey = &#39;YOU API KEY HERE&#39;&#10;&#10;$(&#39;#submitChannelName&#39;).click(function(){&#10;  event.preventDefault();&#10;  $(&#39;#videos&#39;).empty();&#10;  channelName = $(&#39;#channelName&#39;).val()&#10;  getChannel(channelName);&#10;})&#10;&#10;function getChannel(channelName){&#10;  $.get(&#10;    &quot;https://www.googleapis.com/youtube/v3/channels&quot;,{&#10;      part:&#39;contentDetails&#39;,&#10;      forUsername: channelName,&#10;      key: APIKey&#10;    },&#10;    function(data){&#10;      console.log(data);&#10;      if(data.items.length&gt;0){&#10;        $.each(data.items, function(i, item){&#10;          console.log(item);&#10;          var pID = item.contentDetails.relatedPlaylists.uploads;&#10;          getVids(pID);&#10;        })&#10;      }&#10;      else{&#10;        var output = &#39;&lt;li&gt;Channel &#39;+channelName+&#39; does not exist&lt;/li&gt;&#39;&#10;        $(&#39;#videos&#39;).append(output);&#10;      }&#10;    }&#10;  );&#10;}&#10;&#10;getChannel(channelName);&#10;&#10;function getVids(pID){&#10;$.get(&#10;  &quot;https://www.googleapis.com/youtube/v3/playlistItems&quot;,{&#10;    part:&#39;snippet&#39;,&#10;    maxResults: maximumResults,&#10;    playlistId: pID,&#10;    key: APIKey&#10;  },&#10;  function(data){&#10;    if(data.items.length&gt;0){&#10;      var output;&#10;      $.each(data.items, function(i, item){&#10;        console.log(item);&#10;        videoTitle = item.snippet.title;&#10;        console.log(videoTitle);&#10;        videoID = item.snippet.resourceId.videoId;&#10;        output = &#39;&lt;li&gt;&lt;iframe height=&quot;&#39;+videoHeight+&#39;&quot; width=&quot;&#39;+videoWidth+&#39;&quot; src=\&quot;//www.youtube.com/embed/&#39;+videoID+&#39;\&quot;&gt;&lt;/iframe&gt;&lt;/li&gt;&#39;&#10;        $(&#39;#videos&#39;).append(output);&#10;      })&#10;    }&#10;    else{&#10;      var output = &#39;&lt;li&gt;&#39;+channelName+&#39; has no public videos&lt;/li&gt;&#39;&#10;        $(&#39;#videos&#39;).append(output);&#10;    }&#10;  }&#10;);&#10;}</div>
+
+</div>
+
+<div class="container panelplayground" id="additional-instructions">
+    <h3 class="remove-margin similar-capis">Additional Instructions:</h3>
+    <p class="remove-margin">You'll need to get your own API key. Follow the instructions <a href="https://google-developers.appspot.com/maps/documentation/embed/get-api-key" target="_blank" class="additionallink">HERE!</a>
+    <br>
+    After you get your API Key, insert it into the APIKey variable in the javascript
+    <br>
+    You can adjust the maximumResults variable (up to 50). This works by searching for a match in the youtuber's channel name and returns the most recent uploads by that youtuber.
+    </p>
+</div>
+
+<div class="container panelplayground">
+    <h3 class="remove-margin similar-capis">Similar cAPIs:</h3>
+    <div class="row">
+        <div id="similar1" class="col-xs-3"></div>
+        <div id="similar2" class="col-xs-3"></div>
+        <div id="similar3" class="col-xs-3"></div>
+        <div id="similar4" class="col-xs-3"></div>              
+    </div>
+</div>
+
+<div class="push"></div>
+
+<footer id="importFooter" class="footer"></footer>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAoBqOGpNhrH9ba5arV455T2kzhsT3bZHw",
+    authDomain: "capi-paste.firebaseapp.com",
+    databaseURL: "https://capi-paste.firebaseio.com",
+    projectId: "capi-paste",
+    storageBucket: "capi-paste.appspot.com",
+    messagingSenderId: "1002672238599"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../scripts/importheaderfooter.js"></script>
+<script src="../ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+pageTitle = 'Youtube Channel Search';
+pageURL = 'YoutubeChannelSearch.html';
+APIType = 'Youtube Data API v3';
+tags = ['Youtube', 'data api', 'html', 'css', 'javascript'];
+submitter = 'JonP';
+preview = '/pageimages/YoutubeChannelSearch.png'
+
+dbUsers = firebase.database().ref('/userdata');
+dbCurrentUser = firebase.database().ref('/userdata/' +submitter);
+
+dbPages = firebase.database().ref('/pagedata');
+dbCurrentPage = firebase.database().ref('/pagedata/' +pageTitle);
+
+function newUser(){
+    dbCurrentUser.set({
+        "Name": submitter,
+        "Password": "poop",
+        "Avatar": "image.url"
+    })
+}
+newUser();
+
+dbUsers.on('value', snap=>{
+    console.log(snap.val());
+})
+
+function updatePage(){
+    dbCurrentPage.set({
+        Name: pageTitle,
+        URL: pageURL,
+        previewURL: preview,
+        API: APIType,
+        Tags: tags,
+        submittedBy: submitter
+    })
+}
+
+updatePage();
+
+appendNo = 1;
+
+dbPages.on('child_added', snap=>{
+    // tempArray = snap.val();
+    console.log(snap.val());
+    if(tags[0] == snap.val().Tags[0] && appendNo < 5 && pageTitle != snap.val().Name){
+        $('#similar'+appendNo).append('<a href="'+snap.val().URL+'"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'+snap.val().Name+'</h3></div><div class="panel-body"><img class="imgWidth" src="..'+snap.val().previewURL+'"></div></div></a>');
+        appendNo++;
+    }
+})
+
+dbUsers.on('child_added', snap=>{
+// console.log(snap.val().username);
+    if(submitter == snap.val().username){
+        $('#user-icon-change').attr('src', '..'+snap.val().img);
+    }
+})
+</script>
+<!-- Page Specific JS -->
+<script>
+var channelName = 'Ryukahr';
+var maximumResults = 5;
+var videoWidth =  480;
+var videoHeight = videoWidth*3/4;
+var APIKey = 'AIzaSyC--CEK0kKhGRihm9BRqcy4mW5UeV_Nk3w'
+
+$('#submitChannelName').click(function(){
+  event.preventDefault();
+  $('#videos').empty();
+  channelName = $('#channelName').val()
+  getChannel(channelName);
+})
+
+function getChannel(channelName){
+  $.get(
+    "https://www.googleapis.com/youtube/v3/channels",{
+      part:'contentDetails',
+      forUsername: channelName,
+      key: APIKey
+    },
+    function(data){
+      console.log(data);
+      if(data.items.length>0){
+        $.each(data.items, function(i, item){
+          console.log(item);
+          var pID = item.contentDetails.relatedPlaylists.uploads;
+          getVids(pID);
+        })
+      }
+      else{
+        var output = '<li>Channel '+channelName+' does not exist</li>'
+        $('#videos').append(output);
+      }
+    }
+  );
+}
+
+getChannel(channelName);
+
+function getVids(pID){
+$.get(
+  "https://www.googleapis.com/youtube/v3/playlistItems",{
+    part:'snippet',
+    maxResults: maximumResults,
+    playlistId: pID,
+    key: APIKey
+  },
+  function(data){
+    if(data.items.length>0){
+      var output;
+      $.each(data.items, function(i, item){
+        console.log(item);
+        videoTitle = item.snippet.title;
+        console.log(videoTitle);
+        videoID = item.snippet.resourceId.videoId;
+        output = '<li><iframe height="'+videoHeight+'" width="'+videoWidth+'" src=\"//www.youtube.com/embed/'+videoID+'\"></iframe></li>'
+        $('#videos').append(output);
+      })
+    }
+    else{
+      var output = '<li>'+channelName+' has no public videos</li>'
+        $('#videos').append(output);
+    }
+  }
+);
+}
+
+</script>
+
+<script src="../scripts/capis.js"></script>
+<script src="../auth.js"></script>
+</html>

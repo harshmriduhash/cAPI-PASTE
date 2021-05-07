@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Create Account</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="tstyles.css">
+</head>
+<body>
+
+<div class="container" id="signup-container">
+	<div class="row">
+		<div class="col-md-6 text-center">
+<form>
+  <fieldset>
+    <legend>Create An Account</legend>
+    <div class="form-group">
+	  <label for="firstName">Name</label>
+      <input type="text" class="form-control" id="user-name" placeholder="Enter Name">
+      <label for="exampleInputEmail1">Email address</label>
+    <div class="form-group row">
+    </div>
+      <input type="email" class="form-control" id="signup-email" placeholder="Enter Email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="signup-password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary" id="signup-submit">Submit</button>
+  </fieldset>
+
+</form>
+</div>
+</div>
+
+<div class="row">
+  <div id="user-exists-prompt"></div>
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAoBqOGpNhrH9ba5arV455T2kzhsT3bZHw",
+    authDomain: "capi-paste.firebaseapp.com",
+    databaseURL: "https://capi-paste.firebaseio.com",
+    projectId: "capi-paste",
+    storageBucket: "capi-paste.appspot.com",
+    messagingSenderId: "1002672238599"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

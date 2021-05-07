@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+<style type="text/css">
+.infoimg {
+    width: 100%;
+    max-width: 250px !important;
+    margin-bottom: 5px;
+}
+#map {
+    height: 400px;
+    width: 100%;
+}
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar" id="importHeader">
+
+<div class="container" style="margin-top: 6px;">
+    <div class="container" style="text-align: right;">
+      <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Login to cAPI Paste</button>
+    </div>  
+
+    <div id="logged-user"></div>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">cAPI Paste</h4>
+
+            </div>
+            <div class="modal-body">
+               <label><b>Email</b></label>
+                <input id="email-text" type="email" placeholder="Enter Email">
+
+                <label><b>Password</b></label>
+                <input id="password-text" type="password" placeholder="Enter Password">
+
+                <button class="btn btn-md btn-success" type="submit" id="submit-up">Login</button>
+
+                <div id="login-errors"></div>
+
+                <div><h5><a href="createaccount.html">Create Account</a></h5></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+
+
+  </div>
+</nav>
+
+<div class="wrapper" id="importInfoContainer">
+
+<div class="container info-container">
+    <div class="row remove-margin small-bottom-margin">
+        <img class="user-icon" id="user-icon-change" src="http://via.placeholder.com/350x150">
+        <h4><span id="pageTitle-change"></span><br><small><span id="APIType-change"></span> API Snippet by <a id="username-change" href="#" title="JonP Profile">JonP</a></small>
+        </h4>
+    </div>
+    <div id="append-tags" class="row remove-margin small-bottom-margin">
+    </div>
+    <div class="row remove-margin">
+        <button id="preview-button" class="myButton">Preview</button>
+        <button id="html-button" class="myButton">HTML</button>
+        <button id="css-button" class="myButton">CSS</button>
+        <button id="js-button" class="myButton">JS</button>
+    </div>
+</div>
+
+<div class="container playground">
+
+    <div class="website-preview-container">
+        <div id="website-preview">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div id="editor-html">&lt;!-- Place this div where you want the map to show --&gt;&#10;&lt;div id=&quot;map&quot;&gt;&lt;/div&gt;&#10;&#10;&lt;!-- Put This At The Bottom of Your HTML&#10;Get Your Own API Key and Insert it into YOUR_API_KEY --&gt;&#10;&lt;script src=&quot;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;callback=initMap&quot; async defer&gt;&lt;/script&gt;</div>
+
+    <div id="editor-css">.infoimg {&#10;    width: 100%;&#10;    max-width: 250px !important;&#10;    margin-bottom: 5px;&#10;}&#10;#map {&#10;    height: 400px;&#10;    width: 100%;&#10;}</div>
+
+    <div id="editor-javascript">function initMap(){&#10;    // Map options&#10;    var options = {&#10;        //edit zoom to change how zoomed in the map is&#10;        zoom:12,&#10;        //edit the lat and lng to change where the center of the map is&#10;        center: {lat: 37.3382, lng: -121.8863}&#10;    }&#10;    // New Map&#10;    var map = new google.maps.Map(document.getElementById(&#39;map&#39;), options);&#10;&#10;    var markers = [&#10;        {&#10;            coord:{lat: 37.3382, lng: -121.8863},&#10;            content:&#39;&lt;h3&gt;Pooper&lt;/h3&gt;&lt;img class=&quot;infoimg&quot; src=&quot;http://via.placeholder.com/350x150&quot;&gt;&lt;div&gt;This is the prime pooper location in San Jose. Every opportunity I get, I make sure to poop here, thus fulfilling its title as the prime pooper location in San Jose.&lt;/div&gt;&#39;&#10;        },&#10;        {&#10;            coord:{lat: 37.342659, lng: -121.908254}, &#10;            content:&#39;&lt;h3&gt;Poop&lt;/h3&gt;&lt;img class=&quot;infoimg&quot; src=&quot;http://via.placeholder.com/350x150&quot;&gt;&lt;div&gt;I Like eating Poop. I also like pooping a lot. Sometimes when I poop, it smells bad. Should I go see a doctor?&lt;/div&gt;&#39;&#10;        },&#10;        {&#10;            coord:{lat: 37.303434, lng: -121.878085}, &#10;            content:&#39;&lt;h3&gt;Pooping Road&lt;/h3&gt;&lt;img class=&quot;infoimg&quot; src=&quot;http://via.placeholder.com/150x100&quot;&gt;&lt;div&gt;This here is a road. When I am on a road, I decide to poop. This helps me make room for food no matter where I am heading. This is why I call this road the pooping road.&lt;/div&gt;&#39;&#10;        } &#10;    ]&#10;    // Add Markers&#10;    var prev_infowindow = false;&#10;&#10;    function addMarker(properties){&#10;        var marker = new google.maps.Marker({&#10;            position: properties.coord,&#10;            map:map&#10;        })&#10;        if(properties.content){&#10;            var infoWindow = new google.maps.InfoWindow({&#10;            content: properties.content,&#10;            maxWidth: 250&#10;            });&#10;            marker.addListener(&#39;click&#39;, function(){&#10;            if(prev_infowindow) {&#10;                prev_infowindow.close();&#10;            }&#10;            infoWindow.open(map, marker);&#10;            prev_infowindow = infoWindow;&#10;            })  &#10;        }&#10;    }&#10;&#10;    for(var i=0; i&lt;markers.length; i++){&#10;        addMarker(markers[i]);&#10;    }&#10;}</div>
+
+</div>
+
+<div class="container panelplayground" id="additional-instructions">
+    <h3 class="remove-margin similar-capis">Additional Instructions:</h3>
+    <p class="remove-margin">You'll need to get your own API key here: 
+        <a href="https://console.developers.google.com/" target="_blank" class="additionallink">https://console.developers.google.com/</a>
+    <br>
+    After you get your API Key, insert it into the INSERT YOUR API KEY in the html section
+    <br>
+    You can adjust the lat and lng in the javascript to set the map starting location and markers. Please refer to this <a href="https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=en" target="_blank" class="additionallink">link</a> for instructions on how to get the lat and lng you need.
+    </p>
+</div>
+
+<div class="container panelplayground">
+    <h3 class="remove-margin similar-capis">Similar cAPIs:</h3>
+    <div class="row">
+        <div id="similar1" class="col-xs-3"></div>
+        <div id="similar2" class="col-xs-3"></div>
+        <div id="similar3" class="col-xs-3"></div>
+        <div id="similar4" class="col-xs-3"></div>              
+    </div>
+</div>
+
+<div class="push"></div>
+
+<footer id="importFooter" class="footer"></footer>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAoBqOGpNhrH9ba5arV455T2kzhsT3bZHw",
+    authDomain: "capi-paste.firebaseapp.com",
+    databaseURL: "https://capi-paste.firebaseio.com",
+    projectId: "capi-paste",
+    storageBucket: "capi-paste.appspot.com",
+    messagingSenderId: "1002672238599"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../scripts/importheaderfooter.js"></script>
+<script src="../ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+pageTitle = 'Google Maps Example';
+pageURL = 'GoogleMapsExample.html';
+APIType = 'Google Maps';
+tags = ['Google Maps', 'infowindow', ,'marker', 'html', 'css', 'javascript'];
+submitter = 'JonP';
+preview = '/pageimages/GoogleMapsExample.png'
+
+dbUsers = firebase.database().ref('/userdata');
+dbCurrentUser = firebase.database().ref('/userdata/' +submitter);
+
+dbPages = firebase.database().ref('/pagedata');
+dbCurrentPage = firebase.database().ref('/pagedata/' +pageTitle);
+
+function newUser(){
+    dbCurrentUser.set({
+        "Name": submitter,
+        "Password": "poop",
+        "Avatar": "image.url"
+    })
+}
+newUser();
+
+dbUsers.on('value', snap=>{
+    console.log(snap.val());
+})
+
+function updatePage(){
+    dbCurrentPage.set({
+        Name: pageTitle,
+        URL: pageURL,
+        previewURL: preview,
+        API: APIType,
+        Tags: tags,
+        submittedBy: submitter
+    })
+}
+
+updatePage();
+
+appendNo = 1;
+
+dbPages.on('child_added', snap=>{
+    // tempArray = snap.val();
+    console.log(snap.val());
+    if(tags[0] == snap.val().Tags[0] && appendNo < 5 && pageTitle != snap.val().Name){
+        $('#similar'+appendNo).append('<a href="'+snap.val().URL+'"><div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title">'+snap.val().Name+'</h3></div><div class="panel-body"><img class="imgWidth" src="..'+snap.val().previewURL+'"></div></div></a>');
+        appendNo++;
+    }
+})
+
+dbUsers.on('child_added', snap=>{
+// console.log(snap.val().username);
+    if(submitter == snap.val().username){
+        $('#user-icon-change').attr('src', '..'+snap.val().img);
+    }
+})
+
+//Page Specific JS
+function initMap(){
+    // Map options
+    var options = {
+        //edit zoom to change how zoomed in the map is
+        zoom:12,
+        //edit the lat and lng to change where the center of the map is
+        center: {lat: 37.3382, lng: -121.8863}
+    }
+    // New Map
+    var map = new google.maps.Map(document.getElementById('map'), options);
+
+    var markers = [
+        {
+            coord:{lat: 37.3382, lng: -121.8863},
+            content:'<h3>Pooper</h3><img class="infoimg" src="http://via.placeholder.com/350x150"><div>This is the prime pooper location in San Jose. Every opportunity I get, I make sure to poop here, thus fulfilling its title as the prime pooper location in San Jose.</div>'
+        },
+        {
+            coord:{lat: 37.342659, lng: -121.908254}, 
+            content:'<h3>Poop</h3><img class="infoimg" src="http://via.placeholder.com/350x150"><div>I Like eating Poop. I also like pooping a lot. Sometimes when I poop, it smells bad. Should I go see a doctor?</div>'
+        },
+        {
+            coord:{lat: 37.303434, lng: -121.878085}, 
+            content:'<h3>Pooping Road</h3><img class="infoimg" src="http://via.placeholder.com/150x100"><div>This here is a road. When I am on a road, I decide to poop. This helps me make room for food no matter where I am heading. This is why I call this road the pooping road.</div>'
+        } 
+    ]
+    // Add Markers
+    var prev_infowindow = false;
+
+    function addMarker(properties){
+        var marker = new google.maps.Marker({
+            position: properties.coord,
+            map:map
+        })
+        if(properties.content){
+            var infoWindow = new google.maps.InfoWindow({
+            content: properties.content,
+            maxWidth: 250
+            });
+            marker.addListener('click', function(){
+            if(prev_infowindow) {
+                prev_infowindow.close();
+            }
+            infoWindow.open(map, marker);
+            prev_infowindow = infoWindow;
+            })  
+        }
+    }
+
+    for(var i=0; i<markers.length; i++){
+        addMarker(markers[i]);
+    }
+}
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC--CEK0kKhGRihm9BRqcy4mW5UeV_Nk3w&callback=initMap">
+</script>
+<script src="../scripts/capis.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../auth.js"></script>
+</html>
